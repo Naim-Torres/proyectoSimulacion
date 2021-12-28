@@ -1,9 +1,17 @@
 import numpy as np
 import statistics as sta
+import tkinter as tk
 from AnualTableTMGen import AnualTableTMGen
 
 
 def main():
+    #Creacion de la venta de la GUI
+    frame = tk.Tk()
+    frame.geometry("800x500")
+    frame.title("Simulation")
+
+    frame.mainloop()
+
     dataMatrix = [[2004, 36, 6.8], [2005, 28, 7.1], [2006, 23, 7.2], [2007, 26, 6.6],
                      [2008, 26, 6.8], [2009, 26, 7.0], [2010, 25, 7.2], [2011, 25, 7.4],
                      [2012, 26, 6.7], [2013, 28, 7.3], [2014, 27, 7.2], [2015, 28, 7.0],
