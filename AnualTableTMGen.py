@@ -23,7 +23,7 @@ class AnualTableTMGen:
 
     def calculteTMPM25(self):
 
-        pm25distnorm = np.random.normal(self.__pm25mu, self.__pm25sd, size = self.__iteration)
+        pm25distnorm = np.random.normal(self.__pm25mu, self.__pm25sd, size=self.__iteration)
         pm25confdistunif = np.random.uniform(self.__PM25CONFMIN, self.__PM25CONFMAX, self.__iteration)
 
         for i in range(self.__iteration):
