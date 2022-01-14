@@ -23,6 +23,9 @@ class main_simulation:
         self.simulIterationTable = []
         self.__no = no
         self.__cdf_data = []
+        self.__beta = 0
+        self.__avg_af = []
+        self.__avg_rr = []
 
     def begin_simulation(self):
         self.simulIterationTable = []
@@ -31,12 +34,19 @@ class main_simulation:
         for i in range(len(self.dataMatrix)):
             # Tabla con los valores de cada año para todas las iteraciones
             anualIteration = []
-            for iteration in range(100):
+            anualaf = []
+            anualrr = []
+            for iteration in range(10):
                 tablaanual = AnualTableTMGen(self.pm25mu, self.pm25sd, self.tm[i], self.__no)
                 tablaanual.calculteTMPM25()
                 anualIteration.append(tablaanual.getAnualAvgTm())
+                anualaf.append(tablaanual.getAnualAvgAF())
+                anualrr.append(tablaanual.getAnualAvgRR())
             self.simulIterationTable.append([self.dataMatrix[i][0], np.mean(anualIteration)])
+            self.__avg_af.append(np.mean(anualaf))
+            self.__avg_rr.append(np.mean(anualrr))
             self.__cdf_data.extend(anualIteration)
+        self.__beta = tablaanual.get_beta()
 
     def return_dic(self):
         age_list = []
@@ -48,6 +58,18 @@ class main_simulation:
         dict_from_list = dict(zip(age_list, value_list))
         return dict_from_list
 
+    def get_tmpm(self):
+        value_list = []
+        for n in self.simulIterationTable:
+            value_list.append(n[1])
+        return  value_list
+
+    def get_anualaf(self):
+        return self.__avg_af
+
+    def get_anualrr(self):
+        return self.__avg_rr
+
     def get_cdf_data(self):
         return self.__cdf_data
 
@@ -56,3 +78,12 @@ class main_simulation:
 
     def set_no(self, no):
         self.__no = no
+
+    def get_pm_mean(self):
+        return self.pm25mu
+
+    def getDataMetrix(self):
+        return self.dataMatrix
+
+    def getBeta(self):
+        return self.__beta
