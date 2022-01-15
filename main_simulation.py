@@ -6,19 +6,21 @@ from AnualTableTMGen import AnualTableTMGen
 class main_simulation:
 
     def __init__(self, no):
+        """
         self.dataMatrix = [[2004, 36, 6.8], [2005, 28, 7.1], [2006, 23, 7.2], [2007, 26, 6.6],
                       [2008, 26, 6.8], [2009, 26, 7.0], [2010, 25, 7.2], [2011, 25, 7.4],
                       [2012, 26, 6.7], [2013, 28, 7.3], [2014, 27, 7.2], [2015, 28, 7.0],
                       [2016, 25, 7.1], [2017, 29, 6.7], [2018, 28, 6.8], [2019, 28, 7.0],
                       [2020, 20, 6.0]]
-
+        """
+        self.dataMatrix = []
         self.pm25concentration = []
         self.tm = []
-        for n in self.dataMatrix:
-            self.pm25concentration.append(n[1])
-            self.tm.append(n[2])
-        self.pm25mu = sta.mean(self.pm25concentration)
-        self.pm25sd = np.std(self.pm25concentration)
+
+
+        self.pm25mu = 0
+        self.pm25sd = 0
+
         # Tabla el año y los promedios de todos los años y todas las interaciones
         self.simulIterationTable = []
         self.__no = no
@@ -28,6 +30,15 @@ class main_simulation:
         self.__avg_rr = []
 
     def begin_simulation(self):
+        self.pm25concentration = []
+        self.tm = []
+        for n in self.dataMatrix:
+            self.pm25concentration.append(n[1])
+            self.tm.append(n[2])
+        self.pm25mu = sta.mean(self.pm25concentration)
+        self.pm25sd = np.std(self.pm25concentration)
+
+
         self.simulIterationTable = []
         self.__cdf_data = []
         # ciclo por cada anio
@@ -87,3 +98,6 @@ class main_simulation:
 
     def getBeta(self):
         return self.__beta
+
+    def setDataMatrix(self, dataMatrix):
+        self.dataMatrix = dataMatrix
